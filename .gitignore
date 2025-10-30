@@ -1,0 +1,15 @@
+.idea
+.vscode
+.env
+.env.override
+.DS_Store
+vendor/
+node_modules/
+storage/logs/*
+storage/framework/cache/data/*
+storage/framework/sessions/*
+storage/framework/views/*
+docker/mysql/logs/*
+docker/php/logs/*
+docker/nginx/logs/*
+compose.override.yaml

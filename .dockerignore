@@ -1,0 +1,10 @@
+/.github
+/.git
+/.idea
+/.vscode
+.DS_Store
+**.env*
+**.editorconfig
+**.gitattributes
+**.gitignore
+**.md

@@ -1,0 +1,87 @@
+volumes:
+  mysql_data:
+  app_data:
+
+networks:
+  network:
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+      target: production
+    container_name: cashflow_app
+    platform: linux/amd64
+    restart: unless-stopped
+    tty: true
+    depends_on:
+      - mysql
+    volumes:
+      - type: volume
+        source: app_data
+        target: /var/www/html
+        volume:
+          nocopy: true
+      - type: bind
+        source: ./src
+        target: /var/www/html
+    env_file:
+      - path: .env.base
+        required: true
+      - path: .env.override
+        required: false
+    networks:
+      network:
+
+  mysql:
+    build:
+      context: .
+      dockerfile: docker/mysql/Dockerfile
+    container_name: cashflow_mysql
+    platform: linux/amd64
+    restart: unless-stopped
+    tty: true
+    ports:
+      - target: 3306
+        published: 3306
+        protocol: tcp
+        mode: host
+    volumes:
+      - type: volume
+        source: mysql_data
+        target: /var/lib/mysql
+        volume:
+          nocopy: true
+      - type: bind
+        source: docker/mysql/logs
+        target: /var/log/mysql
+    env_file:
+      - path: .env.base
+        required: true
+      - path: .env.override
+        required: false
+    networks:
+      network:
+
+  nginx:
+    build:
+      context: .
+      dockerfile: docker/nginx/Dockerfile
+    container_name: cashflow_nginx
+    platform: linux/amd64
+    restart: unless-stopped
+    tty: true
+    depends_on:
+      - app
+    ports:
+      - target: 80
+        published: 80
+        protocol: tcp
+        mode: host
+    volumes:
+      - type: bind
+        source: ./src
+        target: /var/www/html
+    networks:
+      network:
