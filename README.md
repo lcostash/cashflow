@@ -1,4 +1,4 @@
-# Cash Flow
+# Cashflow
 
 <img src="https://img.shields.io/badge/license-MIT-green" alt="License">
 
@@ -66,6 +66,8 @@ A small Laravel application for managing the cash flow. This repository contains
    ```bash
    127.0.0.1 cashflow.local
    ```
+7. Run database migrations using the next command `php artisan migrate`.
+8. Open in browser the address `cashflow.local`.
 
 ## License
 
