@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Item extends Model
 {
-    use HasFactory, HasUuids;
+    use HasFactory;
 
     protected $guarded = ['id'];
     protected $fillable = ['account_id', 'payee_id', 'article_id', 'amount', 'notes'];

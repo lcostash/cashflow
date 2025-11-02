@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Account extends Model
 {
-    use HasFactory, HasUuids;
+    use HasFactory;
 
     protected $guarded = ['id'];
     protected $fillable = ['name', 'type', 'notes', 'currency_id'];
