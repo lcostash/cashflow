@@ -14,11 +14,7 @@
 
     <livewire:currencies.currency />
 
-    <flux:navbar>
-        <flux:navbar.item class="cursor-pointer" wire:click="add()">
-            {{ __('Add Currency') }}
-        </flux:navbar.item>
-    </flux:navbar>
+    <x-button floating-action-button wire:click="add()" tooltip="{{ __('Add Currency') }}" icon="plus" />
 
     <div class="relative overflow-x-auto mt-4">
         <table class="w-full text-sm text-left">
@@ -35,17 +31,17 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse ($rows as $row)
-                    <tr wire:key="currency-{{ $row->id }}">
-                        <td class="p-2">{{ $row->code }}</td>
-                        <td class="p-2">{{ $row->name }}</td>
+                @forelse ($currencies as $currency)
+                    <tr wire:key="currency-{{ $currency->id }}">
+                        <td class="p-2">{{ $currency->code }}</td>
+                        <td class="p-2">{{ $currency->name }}</td>
                         <td class="p-2 flex alighn-center justify-end">
                             <flux:button size="sm" icon="pencil-square" variant="subtle" class="cursor-pointer"
-                                tooltip="{{ __('Edit :code', ['code' => $row->code]) }}"
-                                wire:click="edit({{ $row->id }})" />
+                                tooltip="{{ __('Edit :code', ['code' => $currency->code]) }}"
+                                wire:click="edit({{ $currency }})" />
                             <flux:button size="sm" icon="trash" variant="subtle" class="cursor-pointer"
-                                tooltip="{{ __('Delete :code', ['code' => $row->code]) }}"
-                                wire:click="confirm({{ $row->id }})" />
+                                tooltip="{{ __('Delete :code', ['code' => $currency->code]) }}"
+                                wire:click="confirm({{ $currency }})" />
                         </td>
                     </tr>
                 @empty
@@ -59,7 +55,7 @@
         </table>
 
         <div class="mt-4">
-            {{ $rows->links() }}
+            {{ $currencies->links() }}
         </div>
 
         <flux:modal name="confirm" class="min-w-[22rem]">
